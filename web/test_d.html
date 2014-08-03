@@ -1,0 +1,39 @@
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+
+<ul>
+    <li>En html5 atributo async del tag < script ></li>
+    <li>XMLHttpRequest (son llamadas asíncronas por defecto) y luego un eval()</li>
+    <li>Crear el tag < script > dinámicamente (por defecto se cargará asíncronamente)</li>
+    <li>Uso de librerías js tipo requirejs, angularjs, etc</li>
+</ul>
+    <script src="js/test_d.js" async></script>
+
+    <script>
+    //método 2 llamada XMLHttpRequest
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange=function()
+    {
+        if (xmlhttp.readyState==4 && xmlhttp.status==200)
+        {
+            eval(xmlhttp.responseText);
+        }
+    }
+    xmlhttp.open("GET","js/test_d.js",true);
+    xmlhttp.send();
+
+    //método 3 crear el tag script
+    [
+      'js/test_d.js',
+    ].forEach(function(src) {
+      var script = document.createElement('script');
+      script.src = src;
+      document.head.appendChild(script);
+    });
+
+    </script>
+</body>
+</html>

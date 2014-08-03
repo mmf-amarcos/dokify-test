@@ -1,0 +1,13 @@
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+<p>No estoy seguro de haber comprendido la intención de esta entrada pero he hecho un planteamiento de reutilización del código entregado que pueda ser válido</p>
+<p>Tal y como está inicialmente la función devolvería siempre 2 por el valor inicial de n (al valer n=0, get y la función en settimeout no entraría)</p>
+<p>He modificado la función para que reciba por parámetro la función callback que devolverá el valor (o retorno de valor, o alert o console.log) y el parámetro n</p>
+<p>Hay que destacar que las funciones callback <strong>no son asíncronas</strong> y para que la función tuviera sentido quizá habría que sacar la llamada a la función get y a la función dentro de settimeout en sucesivos callbacks</p>
+<p>(ver código javascript en js/test_f.js)</p>
+<script src="js/test_f.js"></script>
+</body>
+</html>

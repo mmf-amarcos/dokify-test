@@ -31,13 +31,13 @@ function fillContent( indexCount) {
     for (var i = 1; i <= indexCount; i++) {
         //array( array( ‘nombre’,’apellidos’,’dni’) ) ;
         //As an object
-        var temp = [{
+        var temp = {
             'nombre': 'nombre_' + i,
             'apellidos': 'apellidos_' + i,
             'dni': 'dni_' + i
-        }];
+        };
         //As an array
-        //var temp = [['nombre_' + i, 'apellido_' + i, 'dni_' + i]];
+        var temp = ['nombre_' + i, 'apellido_' + i, 'dni_' + i];
         content.push(temp);
     }
 
@@ -48,9 +48,9 @@ function getTBodyHtml(content) {
     var tbody_html = '';
     for (var i = 0; i < content.length; i++) {
         //As an object
-        tbody_html = tbody_html + '<tr><td>' + content[i][0].nombre + '</td><td>' + content[i][0].apellidos + '</td><td>' + content[i][0].dni + '</td></tr>';
+        //tbody_html = tbody_html + '<tr><td>' + content[i].nombre + '</td><td>' + content[i].apellidos + '</td><td>' + content[i].dni + '</td></tr>';
         //As an array
-        //tbody_html = tbody_html + '<tr><td>' + content[i][0][0] + '</td><td>' + content[i][0][1] + '</td><td>' + content[i][0][2] + '</td></tr>';
+        tbody_html = tbody_html + '<tr><td>' + content[i][0] + '</td><td>' + content[i][1] + '</td><td>' + content[i][2] + '</td></tr>';
     }
 
     return tbody_html;

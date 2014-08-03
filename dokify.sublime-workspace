@@ -4,6 +4,10 @@
 		"selected_items":
 		[
 			[
+				"get",
+				"getElementById"
+			],
+			[
 				"gn",
 				"gnf_sign_session"
 			],
@@ -23,6 +27,18 @@
 	},
 	"buffers":
 	[
+		{
+			"contents": "<html>\n<head>\n\n</head>\n<body>\n\n    <table id=\"myTable\">\n    <thead>\n        <tr>\n            <th>Nombre</th>\n            <th>Apellidos</th>\n            <th>Dni</th>\n        </tr>\n    </thead>\n\n    </table>\n\n<script src=\"js/test_a.js\"></script>\n</body>\n</html>\n",
+			"file": "/home/alvaro/workspace/dokify/web/test_a.html",
+			"file_size": -1,
+			"file_write_time": -1,
+			"settings":
+			{
+				"buffer_size": 260,
+				"line_ending": "Unix",
+				"name": "<html>"
+			}
+		}
 	],
 	"build_system": "",
 	"command_palette":
@@ -51,6 +67,7 @@
 	},
 	"file_history":
 	[
+		"/home/alvaro/workspace/dokify/web/js/test_a.js",
 		"/home/alvaro/workspace/sports-portal-web/src/SportsPortal/NewsBundle/Entity/PostType.php",
 		"/home/alvaro/workspace/sports-portal-web/src/SportsPortal/NewsBundle/Entity/Post.php",
 		"/home/alvaro/workspace/sports-portal-web/app/config/config_dev.yml",
@@ -142,8 +159,38 @@
 	"groups":
 	[
 		{
+			"selected": 0,
 			"sheets":
 			[
+				{
+					"buffer": 0,
+					"file": "/home/alvaro/workspace/dokify/web/test_a.html",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 260,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								243,
+								243
+							]
+						],
+						"settings":
+						{
+							"auto_name": "<html>",
+							"syntax": "Packages/HTML/HTML.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				}
 			]
 		}
 	],
