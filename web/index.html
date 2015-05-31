@@ -3,20 +3,73 @@
     <meta charset="UTF-8">
 </head>
 <body>
-
+    <h1>Resolución test dokify Junio 2015</h1>
     <ul>
-        <li><a href="test_a.html">Test a</a></li>
-        <li><a href="test_b.php">Test b</a></li>
-        <li><a href="test_c.html">Test c</a></li>
-        <li><a href="test_d.html">Test d</a></li>
-        <li><a href="test_e.html">Test e</a></li>
-        <li><a href="test_f.html">Test f</a></li>
-        <li><a href="test_g.php">Test g</a></li>
-        <li><a href="test_h.php">Test h</a></li>
-        <li><a href="test_i.php">Test i</a></li>
-        <li><a href="test_j.php">Test j</a></li>
-        <li><a href="test_k.txt">Test k</a></li>
-        <li><a href="test_l.php">Test l</a></li>
+        <li><a href="test_1.php">Test 1 (longitud objeto json)</a></li>
+        <li><a href="test_2.txt">Test 2 (javascript callback)</a></li>
+        <li><a href="test_3.php">Test 3 (clase iterable y contable)</a></li>
+        <li><a href="test_4.php">Test 4 (componente soporte multiidioma)</a></li>
+        <li><a href="test_5.txt">Test 5 (query sobre empleados, solicitudes, estados)</a></li>
+        <li><a href="test_6.php">Test 6 (validación fecha php)</a></li>
+        <li><h2>Test 7 (limitaciones POO)</h2>
+		<ul>
+			<li>La definición de las característica de un objeto puede no ser la misma para dos programadores distintos</li>
+			<li>La obligación de modelar todo incluso las operaciones más sencillas hace que el código resultante pueda resultar más largo</li>
+		</ul>
+	</li>
+        <li><h2>Test 8 escenarios para clases abstractas e interfaces</h2>
+<p>
+Cuando una clase implementa uno o varios interfaces declaramos que cumple (implementa) todos los métodos definidos en el interface. Un escenario habitual es para definir comportamientos como puede ser el que sea iterable, countable</p>
+
+<p>
+Por otro lado, una clase abstracta lo que hace es darnos un punto de partida sobre el que trabajar. La clase que extiende a una abstracta, tiene disponibles desde el principio los métodos de la clase padre (la clase padre es única) y puede o no sobreescribirlos. Un escenario puede ser cuando queremos modelar objetos que comparten determinadas características.
+</p>
+</li>
+    </ul>
+    <h1>Explicación situaciones</h1>
+    <ul>
+        <li><h2>Situación 1: Pasos sobre petición de nueva funcionalidad</h2>
+	<ol>
+		<li>Concretar la funcionalidad: concretar exactamente cómo es el funcionamiento esperado y la información que debe devolver</li>
+		<li>Confirmar la viabilidad: ver si la funcionalidad es viable y si el peticionario puede tener acceso a esa información (potenciamente privada)</li>
+		<li>Realizar una estimación de tiempo de desarrollo</li>
+		<li>Evaluar la urgencia de la petición</li>		
+		<li>Encolar la tarea en la lista de tareas ya existentes en función de la urgencia y de la estimación de tiempos </li>
+	</ol>
+	<p>Si alguno de estos pasos fuera necesario, se contactaría a los respectivos responsables de departamente (desarrollo y/o facturación)</p>
+</li>
+        <li><h2>Situación 2: Resolución lentitud aplicación</h2>
+<p>Mantendría una cache del resumen de los datos.</p>
+<p>Dependiendo de los características de los datos, podría ser: por sesión, en tablas intermedias, en bd nosql específicas de acceso rápido, ...</p>
+<p>El cálculo de los datos debería ser único en cada modificación de los datos implicados y a ser posible offline (que el cambio de los datos implicados disparara un proceso de generación del resumen o bien un cron periódico)</p>
+</li>
+        <li><h2>Situación 3: Problema técnico complejo reciente</h2>
+<p>
+En mi actual trabajo he tenido que resover una funcionalidad de solapamiento de rangos de ips:</p>
+<p>Para un adServer se han ido registrando rangos de ips pertenecientes a un operador determinado. La recopilación de datos se ha hecho inicialmente sin tener en cuanta solapamientos:</p>
+<p>
+&nbsp;&nbsp;&nbsp;&nbsp;|1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4|<br>
+|0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3|<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;7|<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|9&nbsp;&nbsp;&nbsp;&nbsp;10|
+</p>
+<p>Debido al gran volumen de datos se requería una unificación de rangos solapados. Resultado:<br>
+|0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;7|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|9&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;10|
+</p>
+<p>Para solucionar esta casuística se utilizó un procedimiento recursivo que iba realizando el agrupamiento de los rangos solapados o incluídos</p>
+
+<p>Posteriormente el algoritmo se complicó porque cada rango estaba asociado a un operador (Movistar, Vodafone, Orange) que a su vez estaba asociado a un país.</p>
+<p>
+&nbsp;&nbsp;&nbsp;&nbsp;|1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;VOD&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4|<br>
+|0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MOV&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3|<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;VOD&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;7|<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|9&nbsp;&nbsp;ORAN&nbsp;&nbsp;10|
+</p>
+<p>Resultado:<br>|0&nbsp;&nbsp;MOV&nbsp;&nbsp;&nbsp;1|&nbsp;&nbsp;&nbsp;&nbsp;|2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MOV&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;7|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|9&nbsp;&nbsp;&nbsp;&nbsp;Orange&nbsp;&nbsp;&nbsp;&nbsp;10|
+</p>
+<p>Se solucionó parametrizando cada rango por operador e instaurando una precedencia mayor para el rango insertado más reciente.
+</p>
+</li>
     </ul>
 </body>
 </html>
