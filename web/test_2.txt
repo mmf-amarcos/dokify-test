@@ -56,7 +56,7 @@ var customSetTimeOut =  function (n, callback) {
 	setTimeout(function(){
 		n = n * 2;
                 customAdd2(n, callback);  
-	    }, 2000);
+	    }, 0);
 }
 
 var customAdd2 =  function (n, callback) {
