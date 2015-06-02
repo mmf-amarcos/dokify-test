@@ -1,0 +1,106 @@
+FUNCIONALIDAD CALLLOG
+
+El detalle concreto puede variar en función del estilo de código, estructura de directorios, nomenclatura de archivos y las librerías php/js ya existentes en el resto de la aplicación.
+Dependiendo del estilo existente este listado podría acortarse en gran medida pero para el ejercicio he intentado cubrir todas las posibilidades.
+
+El orden en que se realizarían las tareas sería:
+- modelado de datos (sql/entidades y su mapeo correspondiente)
+- generador de librería call_codes
+- generación de controladores y métodos de consumo de datos
+- generación de vistas, css e interacciones js necesarios
+
+Las tareas de documentación y test se intercalarían dependiendo de la metodología utilizada: TDD, DDD, o LDPEF(lo dejo para el final)
+
+­----------------------------------------------------------------------
+Ficheros 
+----------------------------------------------------------------------
+Suponemos que la funcionalidad implica:
+/sql/create_call_log.php
+Definición de la tabla de base de datos:
+id_call -- int -- id único de la tabla
+call_code -- int -- id único de cada llamada
+state -- int -- código de estado asociado a una codificación previa, bien estática bien en otra tabla de bd (0: pendiente, 1: resuelta)
+assigned_user_id -- clave externa a la tabla de usuarios de soporte
+client_id -- clave externa a la tabla de clientes que nos permite recuperar los datos de usuario y su empresa relacionada
+subject -- string -- campo que define el campo ambito
+comment -- text -- campo para el comentario
+date -- timestamp -- fecha en que se produce la llamada
+init_hour-- time -- hora de comienzo de la llamada
+end_hour-- time -- hora de fin de la llamada
+
+Otro posible modelo algo más elaborada podría ser si cada código de llamada pudiera generar una o más llamadas (por ejemplo en caso de que no quede solucionada la incidencia)
+- una tabla con un listado de códigos generados donde cada código es una llamada a un cliente (en el estado que sea: pendiente, cancelada, resuelta)
+/sql/call.sql
+- otra tabla con el log de las una o más posibles llamadas generadas por cada call_code de la tabla call (relación m:1 sobre la tabla call)
+/sql/call_log.sql
+
+LIBRERÍA CallCode
+- si, por ejemplo, la generación de los call_code tuviera unas reglas determinadas (tipo el dni o el código de cuenta bancaria)
+/lib/CallCodeLibrary.php
+clase con métodos públicos tipo generateCallCode, isValidCallCode, ...
+
+----------------------------------------------------------------------
+­Entidades (MVC Model)
+----------------------------------------------------------------------
+/Entity/CallLog.php
+Clase que define el objeto CallLog y lo relaciona con la tabla en base de datos call_log
+/Entity/CallLogRepository.php
+Clase con métodos que nos permiten actuar o consultar sobre objetos o listas de objetos CallLog
+
+----------------------------------------------------------------------
+­ Vistas (MVC View)
+----------------------------------------------------------------------
+­/Views/CallCodeForm.php (o .twig o .tpl o el motor de plantillas que se utilice)
+Vista con el formulario de introducción del call_code (con posibilidad de mostrar los errores pertinentes)
+­/Views/CallForm.php (o .twig o .tpl o el motor de plantillas que se utilice)
+Vista con el formulario de introducción de datos de una llamada (con posibilidad de mostrar los errores pertinentes u otras necesidades)
+
+----------------------------------------------------------------------
+ Rutas y controladores (MVC Controller)
+----------------------------------------------------------------------
+­/Controller/CallLogController.php
+Debe consumir los datos ofrecidos por las entidades y ponerlos a disposición de las plantillas
+Debería tener metodos públicos para las siguientes urls:
+http://.../call_log/call_code_form 
+Devuelve el html que mostraría el formulario de call_code
+http://.../call_log/call_code_form_action
+Devuelve el html de la repuesta de introducción de un call_code erróneo (o bien redirige al método que muestra el formulario de la llamada) (otra opción sería podría devolver simplemente un json con el éxito o error de la llamada con su texto descriptivo y el código .js se encargaría de la interacción )
+http://.../call_log/call_form
+Devuelve el html del formulario de la llamada
+http://.../call_log/call_form_action
+Devuelve el html de la repuesta de introducción de datos para una llamada (o bien un json que permite la interacción javascript)
+
+----------------------------------------------------------------------
+ Código JS y css
+----------------------------------------------------------------------
+­/web/js/call_log.js
+Posible código js necesario para la funcionalidad (por ejemplo disparadores ajax del formulario, validaciones en la parte cliente, ...)
+/web/­css/call_log.css (o .less o .sass si fuera necesario)
+Posible código css 
+
+----------------------------------------------------------------------
+ Cualquier otro aspecto que consideres relevante 
+----------------------------------------------------------------------
+- posibles librerías php externas  (en /vendor y gestionando sus dependencias con composer o similar
+	orm si se utiliza en la aplicación
+	alguna librería de formulario y/o de validación relacionada
+	phpunit o similar
+	phpdocumentor o similar
+	...
+
+- posibles librerías js y/o css externas (en /web/js/lib y gestionando sus dependencias con bower o similar):
+	tipo mousetrap o keypress (para capturar el CTRL+L)
+	librería externa para el componente tipo chat de gmail (parecido a los modales de jqueryui o de bootstrap pero relocalizable y redimensionable)
+ 	...
+
+- test
+/test/CallLogControllerTest.php
+Test funcionales para las rutas definidas en el controlador
+/test/CallCodeLibraryTest.php
+Test unitarios para la librería CallCodeLibrary
+
+- documentación
+Tendríamos por un lado la posible documentación generada por la librería tipo phpdocumentor 
+Por otro, un directorio genérico donde guardar otra documentación (psds, pdf descriptivos de la funcionalidad, etc)
+/doc/...
+
